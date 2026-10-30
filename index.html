@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>15-Day Schedule</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #222;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: auto;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #243b55, #141e30);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: #dce6f2;
+        }
+
+        /* Summary */
+
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+        }
+
+        .card h2 {
+            font-size: 30px;
+            margin-bottom: 5px;
+        }
+
+        .card p {
+            color: #666;
+        }
+
+        .total h2 {
+            color: #243b55;
+        }
+
+        .done h2 {
+            color: #228b22;
+        }
+
+        .not-done h2 {
+            color: #e74c3c;
+        }
+
+        /* Table */
+
+        .table-box {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1000px;
+        }
+
+        th {
+            background: #243b55;
+            color: white;
+            padding: 15px 10px;
+            text-align: center;
+        }
+
+        td {
+            padding: 14px 10px;
+            text-align: center;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        tr:hover {
+            background: #f7f9fc;
+        }
+
+        /* Checkbox */
+
+        .check-box {
+            width: 22px;
+            height: 22px;
+            cursor: pointer;
+            accent-color: #228b22;
+        }
+
+        /* Status */
+
+        .status {
+            font-weight: bold;
+            padding: 6px 12px;
+            border-radius: 20px;
+            display: inline-block;
+            min-width: 90px;
+        }
+
+        .done-status {
+            background: #dff5e3;
+            color: #228b22;
+        }
+
+        .not-done-status {
+            background: #ffe2e0;
+            color: #d63031;
+        }
+
+        /* Buttons */
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        button {
+            border: none;
+            padding: 12px 22px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .mark-all {
+            background: #228b22;
+            color: white;
+        }
+
+        .clear-all {
+            background: #e74c3c;
+            color: white;
+        }
+
+        button:hover {
+            opacity: 0.85;
+        }
+
+        /* Mobile */
+
+        @media (max-width: 700px) {
+
+            body {
+                padding: 15px;
+            }
+
+            .header h1 {
+                font-size: 25px;
+            }
+
+            .summary {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- Header -->
+
+    <div class="header">
+        <h1>15-Day Schedule</h1>
+        <p>Daily Class, Notes & Project Documentation</p>
+    </div>
+
+
+    <!-- Summary -->
+
+    <div class="summary">
+
+        <div class="card total">
+            <h2 id="totalDays">15</h2>
+            <p>Total Days</p>
+        </div>
+
+        <div class="card done">
+            <h2 id="doneDays">0</h2>
+            <p>Done</p>
+        </div>
+
+        <div class="card not-done">
+            <h2 id="notDoneDays">15</h2>
+            <p>Not Done</p>
+        </div>
+
+    </div>
+
+
+    <!-- Schedule -->
+
+    <div class="table-box">
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Day</th>
+                    <th>Date</th>
+                    <th>Day Name</th>
+                    <th>9–11 AM</th>
+                    <th>11–11:30 AM</th>
+                    <th>11:30–12:30 PM</th>
+                    <th>12:30–1:30 PM</th>
+                    <th>Done?</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody id="scheduleTable">
+
+                <tr>
+                    <td>Day 1</td>
+                    <td>01-11-2026</td>
+                    <td>Sunday</td>
+                    <td>Class</td>
+                    <td>Log Book</td>
+                    <td>Notes Writing</td>
+                    <td>Project Documentation</td>
+                    <td>
+                        <input type="checkbox" class="check-box">
+                    </td>
+                    <td>
+                        <span class="status not-done-status">
+                            Not Done
+                        </span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Day 2</td>
+                    <td>02-11-2026</td>
+                    <td>Monday</td>
+                    <td>Class</td>
+                    <td>Log Book</td>
+                    <td>Notes Writing</td>
+                    <td>Project Documentation</td>
+                    <td>
+                        <input type="checkbox" class="check-box">
+                    </td>
+                    <td>
+                        <span class="status not-done-status">
+                            Not Done
+                        </span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Day 3</td>
+                    <td>03-11-2026</td>
+                    <td>Tuesday</td>
+                    <td>Class</td>
+                    <td>Log Book</td>
+                    <td>Notes Writing</td>
+                    <td>Project Documentation</td>
+                    <td>
+                        <input type="checkbox" class="check-box">
+                    </td>
+                    <td>
+                        <span class="status not-done-status">
+                            Not Done
+                        </span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Day 4</td>
+                    <td>04-11-2026</td>
+                    <td>Wednesday</td>
+                    <td>Class</td>
+                    <td>Log Book</td>
+                    <td>Notes Writing</td>
+                    <td>Project Documentation</td>
+                    <td>
+                        <input type="checkbox" class="check-box">
+                    </td>
+                    <td>
+                        <span class="status not-done-status">
+                            Not Done
+                        </span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Day 5</td>
+                    <td>05-11-2026</td>
+                    <td>Thursday</td>
+                    <td>Class</td>
+                    <td>Log Book</td>
+                    <td>Notes Writing</td>
+                    <td>Project Documentation</td>
+                    <td>
+                        <input type="checkbox" class="check-box">
+                    </td>
+                    <td>
+                        <span class="status not-done-status">
+                            Not Done
+                        </span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Day 6</td>
+                    <td>06-11-2026</td>
+                    <td>Friday</td>
+                    <td>Class</td>
+                    <td>Log Book</td>
+                    <td>Notes Writing</td>
+                    <td>Project Documentation</td>
+                    <td>
+                        <input type="checkbox" class="check-box">
+                    </td>
+                    <td>
+                        <span class="status not-done-status">
+                            Not Done
+                        </span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Day 7</td>
+                    <td>07-11-2026</td>
+                    <td>Saturday</td>
+                    <td>Class</td>
+                    <td>Log Book</td>
+                    <td>Notes Writing</td>
+                    <td>Project Documentation</td>
+                    <td>
+                        <input type="checkbox" class="check-box">
+                    </td>
+                    <td>
+                        <span class="status not-done-status">
+                            Not Done
+                        </span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Day 8</td>
+                    <td>08-11-2026</td>
+                    <td>Sunday</td>
+                    <td>Class</td>
+                    <td>Log Book</td>
+                    <td>Notes Writing</td>
+                    <td>Project Documentation</td>
+                    <td>
+                        <input type="checkbox" class="check-box">
+                    </td>
+                    <td>
+                        <span class="status not-done-status">
+                            Not Done
+                        </span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Day 9</td>
+                    <td>09-11-2026</td>
+                    <td>Monday</td>
+                    <td>Class</td>
+                    <td>Log Book</td>
+                    <td>Notes Writing</td>
+                    <td>Project Documentation</td>
+                    <td>
+                        <input type="checkbox" class="check-box">
+                    </td>
+                    <td>
+                        <span class="status not-done-status">
+                            Not Done
+                        </span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Day 10</td>
+                    <td>10-11-2026</td>
+                    <td>Tuesday</td>
+                    <td>Class</td>
+                    <td>Log Book</td>
+                    <td>Notes Writing</td>
+                    <td>Project Documentation</td>
+                    <td>
+                        <input type="checkbox" class="check-box">
+                    </td>
+                    <td>
+                        <span class="status not-done-status">
+                            Not Done
+                        </span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Day 11</td>
+                    <td>11-11-2026</td>
+                    <td>Wednesday</td>
+                    <td>Class</td>
+                    <td>Log Book</td>
+                    <td>Notes Writing</td>
+                    <td>Project Documentation</td>
+                    <td>
+                        <input type="checkbox" class="check-box">
+                    </td>
+                    <td>
+                        <span class="status not-done-status">
+                            Not Done
+                        </span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Day 12</td>
+                    <td>12-11-2026</td>
+                    <td>Thursday</td>
+                    <td>Class</td>
+                    <td>Log Book</td>
+                    <td>Notes Writing</td>
+                    <td>Project Documentation</td>
+                    <td>
+                        <input type="checkbox" class="check-box">
+                    </td>
+                    <td>
+                        <span class="status not-done-status">
+                            Not Done
+                        </span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Day 13</td>
+                    <td>13-11-2026</td>
+                    <td>Friday</td>
+                    <td>Class</td>
+                    <td>Log Book</td>
+                    <td>Notes Writing</td>
+                    <td>Project Documentation</td>
+                    <td>
+                        <input type="checkbox" class="check-box">
+                    </td>
+                    <td>
+                        <span class="status not-done-status">
+                            Not Done
+                        </span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Day 14</td>
+                    <td>14-11-2026</td>
+                    <td>Saturday</td>
+                    <td>Class</td>
+                    <td>Log Book</td>
+                    <td>Notes Writing</td>
+                    <td>Project Documentation</td>
+                    <td>
+                        <input type="checkbox" class="check-box">
+                    </td>
+                    <td>
+                        <span class="status not-done-status">
+                            Not Done
+                        </span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Day 15</td>
+                    <td>15-11-2026</td>
+                    <td>Sunday</td>
+                    <td>Class</td>
+                    <td>Log Book</td>
+                    <td>Notes Writing</td>
+                    <td>Project Documentation</td>
+                    <td>
+                        <input type="checkbox" class="check-box">
+                    </td>
+                    <td>
+                        <span class="status not-done-status">
+                            Not Done
+                        </span>
+                    </td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+    <!-- Buttons -->
+
+    <div class="buttons">
+
+        <button class="mark-all" onclick="markAll()">
+            ✓ Mark All Done
+        </button>
+
+        <button class="clear-all" onclick="clearAll()">
+            ✕ Clear All
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    const checkboxes = document.querySelectorAll(".check-box");
+
+
+    checkboxes.forEach(function(checkbox) {
+
+        checkbox.addEventListener("change", updateStatus);
+
+    });
+
+
+    function updateStatus() {
+
+        let done = 0;
+
+        checkboxes.forEach(function(checkbox) {
+
+            const row = checkbox.closest("tr");
+            const status = row.querySelector(".status");
+
+            if (checkbox.checked) {
+
+                status.textContent = "Done";
+
+                status.classList.remove("not-done-status");
+                status.classList.add("done-status");
+
+                done++;
+
+            } else {
+
+                status.textContent = "Not Done";
+
+                status.classList.remove("done-status");
+                status.classList.add("not-done-status");
+
+            }
+
+        });
+
+
+        const total = checkboxes.length;
+        const notDone = total - done;
+
+        document.getElementById("totalDays").textContent = total;
+        document.getElementById("doneDays").textContent = done;
+        document.getElementById("notDoneDays").textContent = notDone;
+
+    }
+
+
+    function markAll() {
+
+        checkboxes.forEach(function(checkbox) {
+
+            checkbox.checked = true;
+
+        });
+
+        updateStatus();
+
+    }
+
+
+    function clearAll() {
+
+        checkboxes.forEach(function(checkbox) {
+
+            checkbox.checked = false;
+
+        });
+
+        updateStatus();
+
+    }
+
+</script>
+
+</body>
+</html>
